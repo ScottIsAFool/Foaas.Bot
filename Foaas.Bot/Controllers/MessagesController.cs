@@ -27,7 +27,7 @@ namespace Foaas.Bot.Controllers
         {
             if (message.Type == "Message")
             {
-                var response = await _foaasClient.Off("name", "Foass Bot");
+                var response = await _foaasClient.Off(message.Text, "Foass Bot");
 
                 // return our reply to the user
                 return message.CreateReplyMessage(response.Message);
