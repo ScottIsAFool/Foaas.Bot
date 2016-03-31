@@ -1,0 +1,1 @@
+The FOAAS Bot does not save or store any personally identifiable data. It may store a name, but nothing to associate the name with anything else.
