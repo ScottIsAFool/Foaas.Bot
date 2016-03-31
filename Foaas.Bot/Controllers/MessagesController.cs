@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using Foaas.Bot.Extensions;
 using FOAASClient;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Connector.Utilities;
@@ -28,7 +29,11 @@ namespace Foaas.Bot.Controllers
         {
             if (message.Type == "Message")
             {
-                //return message.CreateReplyMessage("Hello!!!");
+                if (message.Text.IsHi())
+                {
+                    return message.CreateReplyMessage("Hey, fuck face");
+                }
+
                 var response = await FoaasClient.Off(message.From.Name, FromName);
 
                 // return our reply to the user

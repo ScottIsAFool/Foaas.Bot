@@ -4,9 +4,9 @@ namespace Foaas.Bot.Extensions
 {
     public static class StringExtensions
     {
-        public static bool CheckForHi(this string message)
+        public static bool IsHi(this string message)
         {
-            var variants = new[] {"hi", "hello", "yo"};
+            var variants = new[] {"hi", "hello", "yo", "hey", "what's up", "whats up"};
             return variants.Any(message.ToLower().StartsWith);
         }
     }
