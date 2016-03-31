@@ -9,13 +9,14 @@ namespace Foaas.Bot.Controllers
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        private static readonly IFoaasClient _foaasClient;
+        private const string FromName = "Foaas Bot";
+        private static readonly IFoaasClient FoaasClient;
 
         static MessagesController()
         {
-            if (_foaasClient == null)
+            if (FoaasClient == null)
             {
-                _foaasClient = new FoaasClient();
+                FoaasClient = new FoaasClient();
             }
         }
 
@@ -27,15 +28,13 @@ namespace Foaas.Bot.Controllers
         {
             if (message.Type == "Message")
             {
-                var response = await _foaasClient.Off(message.Text, "Foass Bot");
+                var response = await FoaasClient.Off(message.From.Name, FromName);
 
                 // return our reply to the user
                 return message.CreateReplyMessage(response.Message);
             }
-            else
-            {
-                return HandleSystemMessage(message);
-            }
+
+            return HandleSystemMessage(message);
         }
 
         private Message HandleSystemMessage(Message message)
@@ -53,6 +52,8 @@ namespace Foaas.Bot.Controllers
             }
             else if (message.Type == "BotAddedToConversation")
             {
+                var replyMessage = message.CreateReplyMessage("Hey, fuck face what's your name?");
+                return replyMessage;
             }
             else if (message.Type == "BotRemovedFromConversation")
             {
